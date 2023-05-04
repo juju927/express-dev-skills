@@ -1,6 +1,16 @@
+const Nanoid = require('nanoid');
 const { validationResult } = require('express-validator');
 const HardSkills = require('../models/HardSkills')
 
+const seedSkills = (req, res) => {
+  HardSkills.length = 0
+  HardSkills.push(
+    {id: Nanoid.nanoid(), language: 'HTML', level: 3},
+    {id: Nanoid.nanoid(), language: 'CSS', level: 2},
+    {id: Nanoid.nanoid(), language: 'JavaScript', level: 3}
+  )
+  res.json(HardSkills)
+}
 
 const getSkills = (req, res) => {
   res.json(HardSkills);
@@ -18,7 +28,8 @@ const putSkill = (req, res) => {
   }
 
   const newSkill = {
-    id: HardSkills[-1].id + 1,
+    // id: HardSkills[-1].id + 1,
+    id: Nanoid.nanoid(),
     language: req.body.language,
     level: req.body.level
   };
@@ -48,6 +59,7 @@ const patchSkill = (req, res) => {
 }
 
 module.exports = {
+  seedSkills,
   getSkills, 
   postSkill,
   putSkill,

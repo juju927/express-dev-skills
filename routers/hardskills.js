@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const HardSkills = require("../models/HardSkills");
 const {
+  seedSkills,
   getSkills,
   postSkill,
   putSkill,
@@ -10,6 +11,7 @@ const {
 } = require("../controllers/hardskills");
 const { check } = require("express-validator");
 
+router.get('/seedskills', seedSkills)
 router.get("/hardskills", getSkills);
 router.post("/hardskills", postSkill);
 router.put(
@@ -18,8 +20,7 @@ router.put(
     check("language", "a language is required").not().isEmpty(),
     check("level", "a skill level is required").not().isEmpty(),
   ],
-  putSkill
-);
+  putSkill);
 router.delete("/hardskills", deleteSkillByID);
 router.patch("/hardskills/:id", patchSkill);
 
